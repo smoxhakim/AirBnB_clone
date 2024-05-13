@@ -1,1 +1,1 @@
-smox and ouafi (and badr)
+smox and ouafi
