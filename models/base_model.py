@@ -2,6 +2,7 @@
 
 import uuid
 import datetime
+from __init__ import storage
 
 """Base class"""
 
@@ -22,6 +23,8 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
+        
+        storage.new(self)
 
     def __str__(self):
         """returns a string representation of the object"""
@@ -30,6 +33,7 @@ class BaseModel:
     def save(self):
         """saves the object"""
         self.updated_at = datetime.datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns object dictionary"""
