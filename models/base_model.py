@@ -36,7 +36,8 @@ class BaseModel:
 
     def to_dict(self):
         """returns object dictionary"""
-        self.__dict__["__class__"] = self.__class__.__name__
-        self.__dict__["created_at"] = self.created_at.isoformat()
-        self.__dict__["updated_at"] = self.updated_at.isoformat()
-        return self.__dict__
+        obj_dict = self.__dict__.copy()
+        obj_dict["__class__"] = self.__class__.__name__
+        obj_dict["created_at"] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        obj_dict["updated_at"] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        return obj_dict
