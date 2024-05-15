@@ -8,26 +8,41 @@ class FileStorage:
     __objects: dict = dict()
 
     def all(self):
+        """Returns all objects in the FileStorage.
+        """
         return FileStorage.__objects
 
     def new(self, obj):
+        """new(self, obj) - Adds a new object to the FileStorage dictionary
+
+        Parameters:
+            self
+            obj: object - The object to be added to the dictionary
+
+        Returns:
+            None
+        """
         FileStorage.__objects[obj.__class__.__name__+"."+obj.id] = obj.to_dict()
-        
+
 
     def save(self):
-        #Converting datetime objects into a string before dumping them into a JSON file
-        #datetime objectes are not serializable
-        # new_dictionary = {}
-        # for key, value in FileStorage.__objects.items():
-        #     new_dictionary[key] = FileStorage.DatetimeEncoder(value)
+        """Saves the FileStorage data to a file.
 
+        If the file path exists, it writes the FileStorage objects to the file in JSON format with an indentation of 4 spaces.
+        If the file path does not exist, it creates the file and writes the FileStorage objects to it in JSON format with an indentation of 4 spaces.
 
+        Parameters:
+            self
+
+        Returns:
+            None
+        """
         if os.path.exists(FileStorage.__file_path):
             try:
                 with open(FileStorage.__file_path, "w") as f:
                     json.dump(FileStorage.__objects, f, indent=4)
-            except Exception:
-                print(f"The file {FileStorage.__file_path} exists but was enable to dump into it")
+            except Exception as e:
+                print(e)
         elif not os.path.exists(FileStorage.__file_path):
             try:
                 with open(FileStorage.__file_path, "w") as f:
@@ -37,28 +52,25 @@ class FileStorage:
                 return
 
     def reload(self):
+        """Reloads the FileStorage data from a file if the file exists and is not empty.
+        It reads the JSON data from the file and updates the FileStorage objects.
+
+        Parameters:
+            self
+
+        Returns:
+            None
+        """
         if (os.path.exists(FileStorage.__file_path) and
             os.path.getsize(FileStorage.__file_path) != 0):
                 try:
                     with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                         FileStorage.__objects = json.load(f)
                 except json.JSONDecodeError as e:
-                    print("Something went wrong loading objects from the JSON file")
-                    print("Hint: Check for errors in the JSON file")
+                    print("Error Decoding Json")
                     return
                 except Exception as e:
                     print(e)
+                    return
         else:
             return
-
-    # @staticmethod
-    # def DatetimeEncoder(value):
-    #     if isinstance(value, dict):
-    #         new_dict = {}
-    #         for k, v in value.items():
-    #             new_dict[k] = FileStorage.DatetimeEncoder(v)
-    #         return new_dict
-    #     elif isinstance(value, datetime):
-    #         return value.strftime("%Y-%m-%dT%H:%M:%S.%f")
-    #     else:
-    #         return value
