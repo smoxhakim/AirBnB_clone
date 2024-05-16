@@ -4,13 +4,14 @@ import cmd
 from models.base_model import BaseModel
 import json
 import os
+from models.engine.file_storage import FileStorage
 
 class HBNBCommand(cmd.Cmd):
 
     valid_models = ["BaseModel"]
     file_name = "file.json"
     prompt = "(hbnb) "
-    
+    storage = FileStorage()
     
 
     def do_quit(self, arg):
@@ -32,10 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         args_list = args.split()
 
-        #Attempt to assign first argument to Model_name
-        #if no argument were passed, meaning args_list atkun khawya
-        #when we assign Model_name to index 0 the try will throw an IndexError
-        #and we assign Model_name to None
+
         try:
             Model_name = args_list[0]
         except IndexError:
@@ -45,10 +43,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        #had l if kat checki wach l value d Model_name makaynch f valid_models list
-        #katfut 3la l values kamlin li kaynin f valid_models o kat compari kol value b Model_name
-        #ila mal9atuch tma katprint "class dosen't exist"
-        #khdmtha haka cause fl future aykon 3ndna bzaf dl models
+
         if Model_name not in HBNBCommand.valid_models:
             print("** class doesn't exist **")
 
@@ -68,7 +63,6 @@ class HBNBCommand(cmd.Cmd):
         except IndexError:
             print("** class name missing ** ")
             return 
-        #Checks if the model passed to the cmd is a valid Model
         if Model_name not in HBNBCommand.valid_models:
             print("** class doesn't exist **")
             return
@@ -91,6 +85,96 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj_1 = BaseModel(**new_obj)
             print(obj_1)
+            
+    def do_destroy(self, args):
+        args_list = args.split()
+        
+        try:
+            first_args = args_list[0]
+            Model_name =  first_args
+        except IndexError:
+            print("** class name missing ** ")
+            return 
+        #Checks if the model passed to the cmd is a valid Model
+        if Model_name not in HBNBCommand.valid_models:
+            print("** class doesn't exist **")
+            return
+        
+        try:             
+            second_args = args_list[1]
+            Model_id = second_args
+        except IndexError:
+            print("** instance id missing **")
+            return
+        
+        
+        obj_key = f"{Model_name}.{Model_id}"
+        if os.path.exists(HBNBCommand.file_name):
+            with open(HBNBCommand.file_name, "r") as f:
+                dict_objs = json.load(f)
+                if obj_key not in dict_objs:
+                    print("** no instance found **")
+                    return
+            
+        del dict_objs[obj_key]
+        file_storage = HBNBCommand.storage.all()
+        del file_storage[obj_key]
+        
+            
+        with open(HBNBCommand.file_name, "w") as f:
+            json.dump(dict_objs, f, indent=4)
+            
+    # def do_all(self, args):
+    #     args_list = args.split()
+        
+    #     try:
+    #         Model_name = args_list[0]
+    #     except IndexError:
+    #         return
+    #     if Model_name not in HBNBCommand.valid_models:
+    #         print("** class doesn't exist **")
+    #         return
+    #     object_list = []
+    #     with open(HBNBCommand.file_name) as f:
+    #         obj_dict = HBNBCommand.storage.all()
+    #     for obj_value in obj_dict.values():
+    #         instance = BaseModel(**obj_value)
+    #         object_list.append(instance)
+        
+    #         string_representations = [obj.__str__() for obj in object_list]
+    #         print(string_representations)
+
+    def do_all(self, args):
+        """
+        Prints string representations of all instances of the specified class or all instances if no class is specified.
+        """
+        args_list = args.split()
+        class_name = args_list[0] if args_list else None
+        if class_name is None:
+            print("** class doesn't exist **")
+            return
+        
+        if class_name not in HBNBCommand.valid_models:
+            return
+            
+        instances = []
+        for obj in HBNBCommand.storage.all().values():
+            instances.append(str(obj))
+
+        print(instances)
+
+            
+            
+        
+            
+            
+    
+                
+        
+        
+        
+       
+       
         
                 
                 
