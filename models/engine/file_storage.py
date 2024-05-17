@@ -3,12 +3,32 @@
 import json
 import os
 
+"""FileStorage Module"""
+
+
 class FileStorage:
+    """This class handles the serialization and deserialization of instances
+    for the application.
+
+    Methods:
+        all(self): Returns all objects in the FileStorage.
+        new(self, obj): Adds a new object to the FileStorage dictionary.
+        save(self): Saves the FileStorage data to a file.
+        reload(self): Reloads the FileStorage data from a
+        file if the file exists and is not empty.
+    """
     __file_path: str = "file.json"
     __objects: dict = dict()
 
     def all(self):
         """Returns all objects in the FileStorage.
+
+        Parameters:
+            self
+
+        Returns:
+            dict: A dictionary containing all objects
+            stored in the FileStorage.
         """
         return FileStorage.__objects
 
@@ -22,14 +42,18 @@ class FileStorage:
         Returns:
             None
         """
-        FileStorage.__objects[obj.__class__.__name__+"."+obj.id] = obj.to_dict()
-
+        key = obj.__class__.__name__ + "." + obj.id
+        FileStorage.__objects[key] = obj.to_dict()
 
     def save(self):
         """Saves the FileStorage data to a file.
 
-        If the file path exists, it writes the FileStorage objects to the file in JSON format with an indentation of 4 spaces.
-        If the file path does not exist, it creates the file and writes the FileStorage objects to it in JSON format with an indentation of 4 spaces.
+        If the file path exists, it writes the FileStorage objects
+        to the file in JSON format with an indentation of 4 spaces.
+
+        If the file path does not exist, it creates the file and writes
+        the FileStorage objects to it in JSON format with an indentation
+        of 4 spaces.
 
         Parameters:
             self
@@ -52,8 +76,11 @@ class FileStorage:
                 return
 
     def reload(self):
-        """Reloads the FileStorage data from a file if the file exists and is not empty.
-        It reads the JSON data from the file and updates the FileStorage objects.
+        """Reloads the FileStorage data from a file
+        if the file exists and is not empty.
+
+        It reads the JSON data from the file and
+        updates the FileStorage objects.
 
         Parameters:
             self
@@ -62,15 +89,16 @@ class FileStorage:
             None
         """
         if (os.path.exists(FileStorage.__file_path) and
-            os.path.getsize(FileStorage.__file_path) != 0):
-                try:
-                    with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-                        FileStorage.__objects = json.load(f)
-                except json.JSONDecodeError as e:
-                    print("Error Decoding Json")
-                    return
-                except Exception as e:
-                    print(e)
-                    return
+                os.path.getsize(FileStorage.__file_path) != 0):
+            try:
+                with open(FileStorage.__file_path, mode='r',
+                          encoding='utf-8') as f:
+                    FileStorage.__objects = json.load(f)
+            except json.JSONDecodeError as e:
+                print("Error Decoding Json")
+                return
+            except Exception as e:
+                print(e)
+                return
         else:
             return

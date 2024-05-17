@@ -7,11 +7,18 @@ import json
 import os
 from models.engine.file_storage import FileStorage
 
-class HBNBCommand(cmd.Cmd):
+"""HBNBCommand class"""
 
+
+class HBNBCommand(cmd.Cmd):
+    """classes: Dictionary mapping class names to their corresponding classes.
+    file_name: Name of the file to store data.
+    prompt: Prompt displayed for the command line.
+    storage: Instance of FileStorage class for data storage.
+    """
     classes = {
-    "BaseModel": BaseModel,
-    "User": User,
+        "BaseModel": BaseModel,
+        "User": User,
     }
     file_name = "file.json"
     prompt = "(hbnb) "
@@ -53,7 +60,8 @@ class HBNBCommand(cmd.Cmd):
         print(instance.id)
 
     def do_show(self, args):
-
+        """Shows the specified instance of a class.
+        """
         args_list = args.split()
         objects_dictionary = HBNBCommand.storage.all()
 
@@ -69,9 +77,9 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) == 2:
             class_id = args_list[1]
 
-
         obj_key = f"{class_name}.{class_id}"
-        lookup_result = objects_dictionary.get(obj_key, "** no instance found **")
+        lookup_result = objects_dictionary.get(obj_key,
+                                               "** no instance found **")
 
         if not isinstance(lookup_result, dict):
             print(lookup_result)
@@ -80,6 +88,8 @@ class HBNBCommand(cmd.Cmd):
             print(obj)
 
     def do_destroy(self, args):
+        """Destroys a specified instance of a class.
+        """
         args_list = args.split()
 
         if not args_list:
@@ -102,9 +112,10 @@ class HBNBCommand(cmd.Cmd):
 
         del objects_dictionary[obj_key]
         HBNBCommand.storage.save()
-        
 
     def do_all(self, args):
+        """Lists all instances of a specified class.
+        """
         args_list = args.split()
         object_list = []
         obj_dict = HBNBCommand.storage.all()
@@ -125,45 +136,52 @@ class HBNBCommand(cmd.Cmd):
         print(string_representations)
 
     def do_update(self, arg):
-            """Updates an instance based on class name and id by adding or updating attribute"""
-            args = arg.split()
-            if not args:
-                print("** class name missing **")
+        """Updates an instance based on class name and
+        id by adding or updating attribute
+        """
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return
+        try:
+            class_name = args[0]
+            if len(args) < 2:
+                print("** instance id missing **")
                 return
-            try:
-                class_name = args[0]
-                if len(args) < 2:
-                    print("** instance id missing **")
-                    return
-                instance_id = args[1]
-                key = "{}.{}".format(class_name, instance_id)
-                if key not in HBNBCommand.storage.all():
-                    print("** no instance found **")
-                    return
-                if len(args) < 3:
-                    print("** attribute name missing **")
-                    return
-                if len(args) < 4:
-                    print("** value missing **")
-                    return
-                attr_name = args[2]
-                attr_value = args[3]
-                objects = HBNBCommand.storage.all()
-                #check if the attribute passed by the user exist in the key dictionary value
-                if attr_name in objects[key]:
-                    #convert the user type to the existing attribute type
-                    original_attribute = objects[key][attr_name]
-                    original_attribute_type = type(original_attribute)
-                    attr_value = original_attribute_type(attr_value)
+            instance_id = args[1]
+            key = "{}.{}".format(class_name, instance_id)
+            if key not in HBNBCommand.storage.all():
+                print("** no instance found **")
+                return
+            if len(args) < 3:
+                print("** attribute name missing **")
+                return
+            if len(args) < 4:
+                print("** value missing **")
+                return
+            attr_name = args[2]
+            attr_value = args[3]
+            objects = HBNBCommand.storage.all()
+            # check if the attribute passed by the user
+            # exist in the key dictionary value
+            if attr_name in objects[key]:
+                # convert the user type to the existing attribute type
+                original_attribute = objects[key][attr_name]
+                original_attribute_type = type(original_attribute)
+                attr_value = original_attribute_type(attr_value)
 
-                value_dictionary = objects[key]
-                value_dictionary[attr_name] = attr_value
-                HBNBCommand.storage.save()
-            except Exception as e:
-                print(e)
+            value_dictionary = objects[key]
+            value_dictionary[attr_name] = attr_value
+            HBNBCommand.storage.save()
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
+    """This script is the main entry point for
+    the consoleof the AirBnB application.
+
+    It creates an instance of the HBNBCommand
+    class and starts the command loop.
+    """
     HBNBCommand().cmdloop()
-    
-    
