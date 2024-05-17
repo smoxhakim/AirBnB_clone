@@ -147,13 +147,16 @@ class HBNBCommand(cmd.Cmd):
                 attr_name = args[2]
                 attr_value = args[3]
                 objects = HBNBCommand.storage.all()
-                found_ornot = objects.get(key, "Not Found")
-                if isinstance(found_ornot, dict):
-                    found_ornot.update(attr_name, attr_value)
-                else:
-                    objects[attr_name] = attr_value
+                #check if the attribute passed by the user exist in the key dictionary value
+                if attr_name in objects[key]:
+                    #convert the user type to the existing attribute type
+                    original_attribute = objects[key][attr_name]
+                    original_attribute_type = type(original_attribute)
+                    attr_value = original_attribute_type(attr_value)
+
+                value_dictionary = objects[key]
+                value_dictionary[attr_name] = attr_value
                 HBNBCommand.storage.save()
-                print("The key Has been added succefully. Good job")
             except Exception as e:
                 print(e)
 
