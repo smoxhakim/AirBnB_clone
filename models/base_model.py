@@ -25,6 +25,7 @@ class BaseModel:
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
             storage.new(self)
+            
 
     def __str__(self):
         """returns a string representation of the object"""
@@ -42,3 +43,4 @@ class BaseModel:
         obj_dict["created_at"] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         obj_dict["updated_at"] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         return obj_dict
+    

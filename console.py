@@ -2,6 +2,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 import json
 import os
 from models.engine.file_storage import FileStorage
@@ -10,27 +11,27 @@ class HBNBCommand(cmd.Cmd):
 
     classes = {
     "BaseModel": BaseModel,
+    "User": User,
     }
     file_name = "file.json"
     prompt = "(hbnb) "
     storage = FileStorage()
 
+    def do_quit(self, arg):
+        """Quit command to exit the program
+        """
+        return True
 
-    # def do_quit(self, arg):
-    #     """Quit command to exit the program
-    #     """
-    #     return True
+    def do_EOF(self, arg):
+        """Exit the program on EOF (Ctrl+D)
+        """
+        print()
+        return True
 
-    # def do_EOF(self, arg):
-    #     """Exit the program on EOF (Ctrl+D)
-    #     """
-    #     print()
-    #     return True
-
-    # def emptyline(self):
-    #     """Called when an empty line is entered in response to the prompt
-    #     """
-    #     pass
+    def emptyline(self):
+        """Called when an empty line is entered in response to the prompt
+        """
+        pass
 
     def do_create(self, args):
         """
@@ -101,6 +102,7 @@ class HBNBCommand(cmd.Cmd):
 
         del objects_dictionary[obj_key]
         HBNBCommand.storage.save()
+        
 
     def do_all(self, args):
         args_list = args.split()
@@ -163,3 +165,5 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    
+    
