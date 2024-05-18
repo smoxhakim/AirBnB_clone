@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the program
         """
-        return True
+        exit()
 
     def do_EOF(self, arg):
         """Exit the program on EOF (Ctrl+D)
