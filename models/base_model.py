@@ -49,7 +49,7 @@ class BaseModel:
     def save(self):
         """Saves the object"""
         self.updated_at = datetime.datetime.now()
-        storage.save(self)
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary representation of the object"""
