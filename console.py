@@ -134,27 +134,45 @@ class HBNBCommand(cmd.Cmd):
         del objects_dictionary[obj_key]
         HBNBCommand.storage.save()
 
-    def do_all(self, args):
-        """Lists all instances of a specified class.
-        """
-        args_list = args.split()
-        object_list = []
-        obj_dict = HBNBCommand.storage.all()
-        class_name = args_list[0] if args_list else None
+    # def do_all(self, args):
+    #     """Lists all instances of a specified class.
+    #     """
+    #     args_list = args.split()
+    #     object_list = []
+    #     obj_dict = HBNBCommand.storage.all()
+    #     class_name = args_list[0] if args_list else None
 
-        if class_name is None:
-            return
+    #     if class_name is None:
+    #         return
 
-        if class_name not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
+    #     if class_name not in HBNBCommand.classes:
+    #         print("** class doesn't exist **")
+    #         return
 
-        for obj_value in obj_dict.values():
-            instance = BaseModel(**obj_value)
-            object_list.append(instance)
+    #     for obj_value in obj_dict.values():
+    #         instance = BaseModel(**obj_value)
+    #         object_list.append(instance)
 
-        string_representations = [obj.__str__() for obj in object_list]
-        print(string_representations)
+    #     string_representations = [obj.__str__() for obj in object_list]
+    #     print(string_representations)
+    
+    def do_all(self, arg):
+        """all command thar prints all objects representation"""
+        # TODO: all BaseModel dgf
+        if arg == "":
+            list_str = []
+            for key in HBNBCommand.storage.all():
+                list_str.append(str(HBNBCommand.storage.all()[key]))
+            print(list_str)
+        else:
+            if arg.split()[0] in HBNBCommand.classes:
+                list_str = []
+                for key in HBNBCommand.storage.all():
+                    if arg.split()[0] in key:
+                        list_str.append(str(HBNBCommand.storage.all()[key]))
+                print(list_str)
+            else:
+                print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Updates an instance based on class name and
