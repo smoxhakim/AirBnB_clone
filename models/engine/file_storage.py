@@ -94,9 +94,6 @@ class FileStorage:
                 with open(FileStorage.__file_path, mode='r',
                           encoding='utf-8') as f:
                     FileStorage.__objects = json.load(f)
-            except json.JSONDecodeError as e:
-                print("Error Decoding Json")
-                return
             except Exception as e:
                 print(e)
                 return
