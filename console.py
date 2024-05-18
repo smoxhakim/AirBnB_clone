@@ -59,17 +59,19 @@ class HBNBCommand(cmd.Cmd):
         Creates a new instance of a specified class and saves it to the file.
         """
         args_list = args.split()
-        class_name = args_list[0] if args_list else None
-        instance = HBNBCommand.classes[class_name]()
+        
 
-        if class_name is None:
+        if not args_list:
             print("** class name missing **")
             return
-
-        if class_name not in HBNBCommand.classes:
+        
+        class_name = args_list[0]
+        
+        if  class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
+        
+        instance = HBNBCommand.classes[class_name]()
         instance.save()
         print(instance.id)
 
@@ -88,8 +90,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if len(args_list) == 2:
-            class_id = args_list[1]
+        if len(args_list) != 2:
+            print("** instance id missing **")
+            return
+        
+        class_id = args_list[1]
 
         obj_key = f"{class_name}.{class_id}"
         lookup_result = objects_dictionary.get(obj_key,
@@ -115,8 +120,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if len(args_list) == 2:
-            class_id = args_list[1]
+        if len(args_list) != 2:
+            print("** instance id missing **")
+            return
+            
+        class_id = args_list[1]
 
         obj_key = f"{class_name}.{class_id}"
         objects_dictionary = HBNBCommand.storage.all()
@@ -159,6 +167,9 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             class_name = args[0]
+            if class_name not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return    
             if len(args) < 2:
                 print("** instance id missing **")
                 return
