@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         """Exit the program on EOF (Ctrl+D)
         """
         print()
-        return True
+        exit()
 
     def emptyline(self):
         """Called when an empty line is entered in response to the prompt
