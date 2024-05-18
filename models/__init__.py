@@ -5,8 +5,7 @@ This module initializes the storage variable with an
 instance of FileStorage class and reloads the data.
 """
 
-from models.engine.file_storage import FileStorage
+from .engine.file_storage import FileStorage
 
 storage = FileStorage()
-
 storage.reload()

@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 
 import json
-import os
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 """FileStorage Module"""
 
@@ -17,8 +23,8 @@ class FileStorage:
         reload(self): Reloads the FileStorage data from a
         file if the file exists and is not empty.
     """
-    __file_path: str = "file.json"
-    __objects: dict = dict()
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """Returns all objects in the FileStorage.
@@ -42,8 +48,8 @@ class FileStorage:
         Returns:
             None
         """
-        key = obj.__class__.__name__ + "." + obj.id
-        FileStorage.__objects[key] = obj.to_dict()
+        FileStorage.__objects["{}.{}\
+".format(obj.to_dict()['__class__'], obj.id)] = obj
 
     def save(self):
         """Saves the FileStorage data to a file.
@@ -61,19 +67,11 @@ class FileStorage:
         Returns:
             None
         """
-        if os.path.exists(FileStorage.__file_path):
-            try:
-                with open(FileStorage.__file_path, "w") as f:
-                    json.dump(FileStorage.__objects, f)
-            except Exception as e:
-                print(e)
-        elif not os.path.exists(FileStorage.__file_path):
-            try:
-                with open(FileStorage.__file_path, "w") as f:
-                    json.dump(FileStorage.__objects, f)
-            except Exception as e:
-                print(e)
-                return
+        dictionary = {}
+        for key in FileStorage.__objects:
+            dictionary[key] = FileStorage.__objects[key].to_dict()
+        with open(FileStorage.__file_path, "w") as file:
+            file.write(json.dumps(dictionary))
 
     def reload(self):
         """Reloads the FileStorage data from a file
@@ -88,17 +86,10 @@ class FileStorage:
         Returns:
             None
         """
-        if (os.path.exists(FileStorage.__file_path) and
-                os.path.getsize(FileStorage.__file_path) != 0):
-            try:
-                with open(FileStorage.__file_path, mode='r',
-                          encoding='utf-8') as f:
-                    FileStorage.__objects = json.load(f)
-            except json.JSONDecodeError as e:
-                print("Error Decoding Json")
-                return
-            except Exception as e:
-                print(e)
-                return
-        else:
-            return
+        try:
+            with open(FileStorage.__file_path, "r") as file:
+                dictionary = json.loads(file.read())
+            for key in dictionary:
+                self.new(eval(dictionary[key]["__class__"])(**dictionary[key]))
+        except IOError:
+            pass
