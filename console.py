@@ -90,8 +90,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if len(args_list) == 2:
-            class_id = args_list[1]
+        if len(args_list) != 2:
+            print("** instance id missing **")
+            return
+        
+        class_id = args_list[1]
 
         obj_key = f"{class_name}.{class_id}"
         lookup_result = objects_dictionary.get(obj_key,
