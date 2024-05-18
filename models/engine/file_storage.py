@@ -64,13 +64,13 @@ class FileStorage:
         if os.path.exists(FileStorage.__file_path):
             try:
                 with open(FileStorage.__file_path, "w") as f:
-                    json.dump(FileStorage.__objects, f, indent=4)
+                    json.dump(FileStorage.__objects, f)
             except Exception as e:
                 print(e)
         elif not os.path.exists(FileStorage.__file_path):
             try:
                 with open(FileStorage.__file_path, "w") as f:
-                    json.dump(FileStorage.__objects, f, indent=4)
+                    json.dump(FileStorage.__objects, f)
             except Exception as e:
                 print(e)
                 return
