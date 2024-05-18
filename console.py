@@ -59,17 +59,19 @@ class HBNBCommand(cmd.Cmd):
         Creates a new instance of a specified class and saves it to the file.
         """
         args_list = args.split()
-        class_name = args_list[0] if args_list else None
-        instance = HBNBCommand.classes[class_name]()
+        
 
-        if class_name is None:
+        if not args_list:
             print("** class name missing **")
             return
-
-        if class_name not in HBNBCommand.classes:
+        
+        class_name = args_list[0]
+        
+        if  class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
+        
+        instance = HBNBCommand.classes[class_name]()
         instance.save()
         print(instance.id)
 
