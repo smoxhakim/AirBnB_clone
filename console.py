@@ -1,11 +1,19 @@
 #!/usr/bin/python3
 
 import cmd
-from models.base_model import BaseModel
-from models.user import User
 import json
 import os
+
+from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
 from models.engine.file_storage import FileStorage
+
 
 """HBNBCommand class"""
 
@@ -19,6 +27,11 @@ class HBNBCommand(cmd.Cmd):
     classes = {
         "BaseModel": BaseModel,
         "User": User,
+        "City": City,
+        "Place": Place,
+        "State": State,
+        "Amenity": Amenity,
+        "Review": Review,
     }
     file_name = "file.json"
     prompt = "(hbnb) "
@@ -163,7 +176,7 @@ class HBNBCommand(cmd.Cmd):
             attr_value = args[3]
             objects = HBNBCommand.storage.all()
             # check if the attribute passed by the user
-            # exist in the key dictionary value
+            # exist in the key's value dictionary
             if attr_name in objects[key]:
                 # convert the user type to the existing attribute type
                 original_attribute = objects[key][attr_name]
