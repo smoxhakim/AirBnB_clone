@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""HBNBCommand class"""
 
 import cmd
 import json
