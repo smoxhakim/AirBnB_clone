@@ -2,8 +2,7 @@
 """HBNBCommand class"""
 
 import cmd
-import json
-import os
+import ast
 
 from models.base_model import BaseModel
 from models.user import User
@@ -59,18 +58,18 @@ class HBNBCommand(cmd.Cmd):
         Creates a new instance of a specified class and saves it to the file.
         """
         args_list = args.split()
-        
+
 
         if not args_list:
             print("** class name missing **")
             return
-        
+
         class_name = args_list[0]
-        
+
         if  class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         instance = HBNBCommand.classes[class_name]()
         instance.save()
         print(instance.id)
@@ -93,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) != 2:
             print("** instance id missing **")
             return
-        
+
         class_id = args_list[1]
 
         obj_key = f"{class_name}.{class_id}"
@@ -123,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) != 2:
             print("** instance id missing **")
             return
-            
+
         class_id = args_list[1]
 
         obj_key = f"{class_name}.{class_id}"
@@ -169,7 +168,7 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             if class_name not in HBNBCommand.classes:
                 print("** class doesn't exist **")
-                return    
+                return
             if len(args) < 2:
                 print("** instance id missing **")
                 return
@@ -194,9 +193,10 @@ class HBNBCommand(cmd.Cmd):
                 original_attribute = objects[key][attr_name]
                 original_attribute_type = type(original_attribute)
                 attr_value = original_attribute_type(attr_value)
-
-            value_dictionary = objects[key]
-            value_dictionary[attr_name] = attr_value
+            else:
+                attr_value_str = ast.literal_eval(attr_value)
+                value_dictionary = objects[key]
+                value_dictionary[attr_name] = attr_value_str
             HBNBCommand.storage.save()
         except Exception as e:
             print(e)
