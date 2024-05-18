@@ -1,9 +1,7 @@
 #!/usr/bin/python3
-
 """User Module"""
 
 from models.base_model import BaseModel
-from models.__init__ import storage
 
 
 
