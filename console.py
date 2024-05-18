@@ -186,23 +186,23 @@ class HBNBCommand(cmd.Cmd):
             attr_name = args[2]
             attr_value = args[3]
             objects = HBNBCommand.storage.all()
-            attr_value_str = None
+            # attr_value_str = None
             # check if the attribute passed by the user
             # exist in the key's value dictionary
-            if attr_name in objects[key]:
-                # convert the user type to the existing attribute type
-                original_attribute_value = objects[key][attr_name]
-                original_attribute_type = type(original_attribute_value)
-                attr_value_old = original_attribute_type(attr_value)
-            elif attr_name not in objects[key]:
-                attr_value_str = ast.literal_eval(attr_value)
+            # if attr_name in objects[key]:
+            #     # convert the user type to the existing attribute type
+            #     original_attribute_value = objects[key][attr_name]
+            #     original_attribute_type = type(original_attribute_value)
+            #     attr_value_old = original_attribute_type(attr_value)
+            # elif attr_name not in objects[key]:
+            attr_value_str = ast.literal_eval(attr_value)
 
             value_dictionary = objects[key]
                 
-            if attr_value_str is None:
-                value_dictionary[attr_name] = attr_value_old
-            else:
-                value_dictionary[attr_name] = attr_value_str
+            # if attr_value_str is None:
+            #     value_dictionary[attr_name] = attr_value_old
+            # else:
+            value_dictionary[attr_name] = attr_value_str
             
             HBNBCommand.storage.save()
         except Exception as e:
