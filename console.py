@@ -183,10 +183,9 @@ class HBNBCommand(cmd.Cmd):
             attr_name = args[2]
             attr_value = args[3]
             objects = HBNBCommand.storage.all()
-
+            obj = objects[key]
             attr_value_str = ast.literal_eval(attr_value)
-            value_dictionary = objects[key]
-            value_dictionary[attr_name] = attr_value_str
+            setattr(obj, attr_name, attr_value_str)
             
             HBNBCommand.storage.save()
         except Exception as e:
