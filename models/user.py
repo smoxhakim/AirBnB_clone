@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+"""User Module"""
+
 from models.base_model import BaseModel
 
-"""User Module"""
 
 
 class User(BaseModel):

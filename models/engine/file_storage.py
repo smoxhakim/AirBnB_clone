@@ -2,6 +2,8 @@
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+
 
 """FileStorage Module"""
 
@@ -80,6 +82,9 @@ class FileStorage:
         Returns:
             None
         """
+                
+
+
         try:
             with open(FileStorage.__file_path, "r") as file:
                 dictionary = json.loads(file.read())
