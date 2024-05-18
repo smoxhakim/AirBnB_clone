@@ -88,11 +88,9 @@ class FileStorage:
         Returns:
             None
         """
-        if (os.path.exists(FileStorage.__file_path) and
-                os.path.getsize(FileStorage.__file_path) != 0):
+        if (os.path.exists(FileStorage.__file_path)):
             try:
-                with open(FileStorage.__file_path, mode='r',
-                          encoding='utf-8') as f:
+                with open(FileStorage.__file_path) as f:
                     FileStorage.__objects = json.load(f)
             except Exception as e:
                 print(e)
