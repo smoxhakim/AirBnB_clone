@@ -46,7 +46,7 @@ $ echo "help" | ./console.py
 Documented commands (type help <topic>):
 EOF  help  quit
 (hbnb)
-$  
+$
 ```
 ## Testing
 
@@ -57,11 +57,15 @@ This project uses the `unittest` module for testing. Test files are located in t
 - Test files are organized based on the corresponding source files (e.g., `tests/test_models/test_base.py` for `models/base.py`)
 
 To run the tests, execute the following command:
+```
 python3 -m unittest discover tests
+```
 Alternatively, you can run tests for a specific file:
+```
 python3 -m unittest tests/test_models/test_base.py
+```
 
 ## Authors
 
-- Omar ID HMAID
-- Soufiane OUMALEK
+- Abdelhakim Joulal
+- Abdeljalil Ouafi
