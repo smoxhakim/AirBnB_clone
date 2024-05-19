@@ -1,5 +1,5 @@
 # HBNB CLONE PROJECT
-![Airbnb](https://www.google.com/imgres?q=airbnb&imgurl=https%3A%2F%2Fcdn-eahjn.nitrocdn.com%2FChEvwayTHZmZJUAdsUNMLXuXZdBprFoQ%2Fassets%2Fimages%2Foptimized%2Frev-82d6b35%2Fwww.spinxdigital.com%2Fapp%2Fuploads%2F2022%2F11%2Fimage-airbnb.jpg&imgrefurl=https%3A%2F%2Fwww.spinxdigital.com%2Fblog%2Fwhat-you-can-learn-from-airbnbs-successful-startup%2F&docid=lZMKr-UqYRIaBM&tbnid=JLkgq40s30tXdM&vet=12ahUKEwi23uu2_JmGAxXrVfEDHQHkAFEQM3oECHMQAA..i&w=2640&h=1764&hcb=2&ved=2ahUKEwi23uu2_JmGAxXrVfEDHQHkAFEQM3oECHMQAA)
+![Airbnb](https://cdn-eahjn.nitrocdn.com/ChEvwayTHZmZJUAdsUNMLXuXZdBprFoQ/assets/images/optimized/rev-82d6b35/www.spinxdigital.com/app/uploads/2022/11/image-airbnb.jpg)
 ## Description
 
 HolbertonBnB is a comprehensive web application that emulates AirBnB's functionality by seamlessly integrating database storage, a robust back-end API, and an intuitive front-end interface. This project primarily focuses on the development of the back-end console component.
