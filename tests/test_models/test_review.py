@@ -1,29 +1,30 @@
 #!/usr/bin/python3
-""" unit test for bases """
-import json
+""" unit test for Review """
 import unittest
-from models.base_model import BaseModel
+from models.review import Review
 from datetime import datetime
-import pep8
-import models
-from io import StringIO
-import sys
-from unittest.mock import patch
-captured_output = StringIO()
-sys.stdout = captured_output
 
 
-class UserTest(unittest.TestCase):
-    """ class for base test """
+class ReviewTestCase(unittest.TestCase):
+    """ class for Review test """
 
-    def test_pep8_compliance(self):
-        """
-        pycodestyle testing
-        """
-        pycodestyle = pep8.StyleGuide(quiet=True)
-        result = pycodestyle.check_files(["models/review.py"])
-        errorMessage = "Found code style errors (and warnings)."
-        self.assertEqual(result.total_errors, 0, errorMessage)
+    def test_review(self):
+        """existince"""
+        new = Review()
+        self.assertTrue(hasattr(new, "id"))
+        self.assertTrue(hasattr(new, "created_at"))
+        self.assertTrue(hasattr(new, "updated_at"))
+        self.assertTrue(hasattr(new, "place_id"))
+        self.assertTrue(hasattr(new, "user_id"))
+        self.assertTrue(hasattr(new, "text"))
+
+        """type test"""
+        self.assertIsInstance(new.id, str)
+        self.assertIsInstance(new.created_at, datetime)
+        self.assertIsInstance(new.updated_at, datetime)
+        self.assertIsInstance(new.place_id, str)
+        self.assertIsInstance(new.user_id, str)
+        self.assertIsInstance(new.text, str)
 
 
 if __name__ == '__main__':

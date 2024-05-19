@@ -1,29 +1,28 @@
 #!/usr/bin/python3
-""" unit test for bases """
-import json
+""" unit test for City """
 import unittest
-from models.base_model import BaseModel
+from models.city import City
 from datetime import datetime
-import pep8
-import models
-from io import StringIO
-import sys
-from unittest.mock import patch
-captured_output = StringIO()
-sys.stdout = captured_output
 
 
-class UserTest(unittest.TestCase):
-    """ class for base test """
+class CityTestCase(unittest.TestCase):
+    """ class for city test """
 
-    def test_pep8_compliance(self):
-        """
-        pycodestyle testing
-        """
-        pycodestyle = pep8.StyleGuide(quiet=True)
-        result = pycodestyle.check_files(["models/city.py"])
-        errorMessage = "Found code style errors (and warnings)."
-        self.assertEqual(result.total_errors, 0, errorMessage)
+    def test_city(self):
+        """existince"""
+        new = City()
+        self.assertTrue(hasattr(new, "id"))
+        self.assertTrue(hasattr(new, "created_at"))
+        self.assertTrue(hasattr(new, "updated_at"))
+        self.assertTrue(hasattr(new, "state_id"))
+        self.assertTrue(hasattr(new, "name"))
+
+        """type test"""
+        self.assertIsInstance(new.id, str)
+        self.assertIsInstance(new.created_at, datetime)
+        self.assertIsInstance(new.updated_at, datetime)
+        self.assertIsInstance(new.state_id, str)
+        self.assertIsInstance(new.name, str)
 
 
 if __name__ == '__main__':
