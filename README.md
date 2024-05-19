@@ -68,4 +68,4 @@ python3 -m unittest tests/test_models/test_base.py
 ## Authors
 
 - Abdelhakim Joulal | `smoxhakim`
-- Abdeljalil Ouafi | `AbdeljalilOuafi`
+- Abdeljalil Ouafi  | `AbdeljalilOuafi`
