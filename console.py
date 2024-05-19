@@ -59,14 +59,13 @@ class HBNBCommand(cmd.Cmd):
         """
         args_list = args.split()
 
-
         if not args_list:
             print("** class name missing **")
             return
 
         class_name = args_list[0]
 
-        if  class_name not in HBNBCommand.classes:
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
@@ -134,7 +133,6 @@ class HBNBCommand(cmd.Cmd):
         del objects_dictionary[obj_key]
         HBNBCommand.storage.save()
 
-    
     def do_all(self, arg):
         """all command thar prints all objects representation"""
         # TODO: all BaseModel dgf
@@ -186,7 +184,7 @@ class HBNBCommand(cmd.Cmd):
             obj = objects[key]
             attr_value_str = ast.literal_eval(attr_value)
             setattr(obj, attr_name, attr_value_str)
-            
+
             HBNBCommand.storage.save()
         except Exception as e:
             print(e)
