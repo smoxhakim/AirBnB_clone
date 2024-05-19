@@ -176,6 +176,69 @@ class HBNBCommand(cmd.Cmd):
 
         setattr(obj, attr_name, attr_value)
         obj.save()
+        
+    def default(self, line):
+        """
+        default commands
+        """
+        if line.endswith(".all()"):
+            """
+            Check if the command matches
+            <class_name>.all()
+            """
+            if line[:-6] != "":
+                self.do_all(line[:-6])
+        elif line.endswith(".count()"):
+            """
+            Check if the command matches
+            <class_name>.count()
+            """
+            if line[:-8] != "":
+                if line[:-8] in HBNBCommand.classes_list:
+                    num_obj = 0
+                    for key in storage.all():
+                        if line[:-8] in key:
+                            num_obj += 1
+                    print(num_obj)
+                else:
+                    print("** class doesn't exist **")
+
+        elif ".show(" in line and line.endswith(")"):
+            """
+            Check if the command matches
+            <class_name>.show(<id>)
+            """
+            className = line.split(".")[0]
+            id = line.split("(")[1][:-1]
+            self.do_show(className+" "+id)
+
+        elif ".destroy(" in line and line.endswith(")"):
+            """
+            Check if the command matches
+            <class_name>.destroy(<id>)
+            """
+            className = line.split(".")[0]
+            id = line.split("(")[1][:-1]
+            self.do_destroy(className+" "+id)
+
+        elif ".update(" in line and line.endswith(")"):
+            className = line.split(".")[0]
+            args = line.split("(")[1][:-1]
+            if "{" in args and args.endswith("}"):
+                id = args.split(", ")[0]
+                str_dict = "{"+args.split("{")[1]
+                dictionary = dict(eval(str_dict))
+                string = className+" "+id
+                for attr in dictionary:
+                    self.do_update(string+" \
+"+attr+" "+"\""+str(dictionary[attr])+"\"")
+            else:
+                string = className
+                for elm in args.split(", "):
+                    string += " "+elm
+                self.do_update(string)
+        else:
+            print("*** Unknown syntax: "+line)      
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
