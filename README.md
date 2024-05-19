@@ -6,7 +6,7 @@ HolbertonBnB is a comprehensive web application that emulates AirBnB's functiona
 
 ## Getting Started
 
-To start the console, run the following command:  
+To start the console, run the following command:
 `./console.py`
 ## Usage
 
@@ -20,12 +20,14 @@ The console supports the following commands:
 - `Ctrl+D`: Swiftly bid farewell.
 
 ### Examples
+```
 (hbnb) create BaseModel
 (hbnb) destroy BaseModel 1234-1234-1234
 (hbnb) show BaseModel 1234-1234-1234
 (hbnb) all BaseModel
 (hbnb) update BaseModel 1234-1234-1234 name "New Name"
-(hbnb) quit
+(hbnb) quit  
+```
 
 
 ### Interactive Mode
