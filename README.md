@@ -7,7 +7,7 @@ HolbertonBnB is a comprehensive web application that emulates AirBnB's functiona
 ## Getting Started
 
 To start the console, run the following command:
-./console.py
+`./console.py`
 ## Usage
 
 The console supports the following commands:
