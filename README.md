@@ -26,24 +26,28 @@ The console supports the following commands:
 (hbnb) show BaseModel 1234-1234-1234
 (hbnb) all BaseModel
 (hbnb) update BaseModel 1234-1234-1234 name "New Name"
-(hbnb) quit  
+(hbnb) quit
 ```
 
 
 ### Interactive Mode
+```
 $ ./console.py
 (hbnb) help
 Documented commands (type help <topic>):
 EOF  help  quit
 (hbnb) quit
 $
+```
 ### Non-Interactive Mode
+```
 $ echo "help" | ./console.py
 (hbnb)
 Documented commands (type help <topic>):
 EOF  help  quit
 (hbnb)
-$
+$  
+```
 ## Testing
 
 This project uses the `unittest` module for testing. Test files are located in the `tests/` directory, with the following conventions:
