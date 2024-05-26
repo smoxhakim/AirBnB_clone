@@ -1,0 +1,20 @@
+header{
+    background-color: rgb(255, 255, 255);
+    height: 70px;
+    width: 100%;
+    border-style: none;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+
+}
+.logo{
+    background: url('../images/logo.png') no-repeat center;
+    background-size: contain;
+    display: inline-block;
+    height: 60px;
+    width: 142px;
+
+
+}
