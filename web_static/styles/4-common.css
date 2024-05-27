@@ -1,4 +1,4 @@
-body {
+body{
     margin: 0;
     padding: 0;
     color: rgb(72, 72, 72);
@@ -6,9 +6,7 @@ body {
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     
 }
-
 .container {
     max-width: 1000px;
-    margin-bottom: 30px auto;
-
+    margin: 30px auto;
 }
